@@ -3,13 +3,17 @@ import Footer from "../components/Footer";
 import HeroBanner from "../components/HeroBanner";
 import { CtaBanner } from "../components/Banners";
 import { Countup } from "../components/CounyUp";
-import OfficeMap from "../components/LeafletMap";
+//import OfficeMap from "../components/LeafletMap";
 import PartnersSlider from "../components/PartnersSlider";
 import customer from "../assets/img/count/gender-neutral-user--v1.png";
 import group from "../assets/img/count/group.png";
 import campaign from "../assets/img/count/external-campaign-activism-flaticons-flat-flat-icons.png";
 import agreement from "../assets/img/count/agreement.png";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+const LeafletMap = dynamic(() => import("../components/LeafletMap"), {
+  ssr: false,
+});
 
 const services = [
   {
@@ -201,7 +205,7 @@ export default function Page() {
               </span>
             </div>
             <div className="flex h-48 items-center justify-center rounded-xl border border-brandblue/10 bg-brandblue/5 text-sm text-brandblue/50">
-              <OfficeMap />
+              <LeafletMap />
             </div>
           </div>
         </div>
