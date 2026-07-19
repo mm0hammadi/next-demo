@@ -1,71 +1,103 @@
-const steps = [
-  {
-    number: "01",
-    title: "تحلیل وضعیت موجود",
-    desc: "بررسی بازار، ساختار فروش، فرآیندها، تیم و داده‌های سازمان برای شناسایی فرصت‌ها و چالش‌ها.",
-  },
-  {
-    number: "02",
-    title: "طراحی استراتژی",
-    desc: "تدوین استراتژی فروش، طراحی قیف فروش، شاخص‌های عملکرد و نقشه راه اجرایی.",
-  },
-  {
-    number: "03",
-    title: "پیاده‌سازی و استقرار",
-    desc: "اجرای فرآیندها، استقرار CRM، آموزش تیم فروش و بهینه‌سازی ساختار سازمانی.",
-  },
-  {
-    number: "04",
-    title: "پایش و بهبود مستمر",
-    desc: "اندازه‌گیری نتایج، تحلیل داده‌ها و بهبود مستمر برای دستیابی به رشد پایدار درآمد.",
-  },
-];
+"use client";
 
-export default function ProcessTimeline() {
+import { useState } from "react";
+import { Check } from "lucide-react";
+
+export default function ProcessTimeline({ steps }) {
+  const [active, setActive] = useState(0);
+
   return (
-    <section className="bg-white py-24">
+    <section className="bg-slate-50 py-28">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="rounded-full bg-brandgreen/10 px-4 py-2 text-sm font-semibold text-brandgreen-dark">
+        {/* Heading */}
+        <div className="mb-20 text-center">
+          <h2 className="mt-4 text-4xl font-bold text-slate-900">
             فرآیند همکاری
-          </span>
-
-          <h2 className="mt-5 text-4xl font-black text-brandblue">
-            مسیر همکاری با پنداریار
           </h2>
 
-          <p className="mt-5 leading-8 text-brandblue/70">
-            از تحلیل اولیه تا استقرار و بهبود مستمر، در هر مرحله همراه شما هستیم
-            تا سیستم فروش سازمانتان به شکلی پایدار رشد کند.
+          <p className="mx-auto mt-5 max-w-3xl leading-8 text-slate-500">
+            از شناخت کسب‌وکار تا اجرای راهکارها و ارزیابی نتایج، در تمام مراحل
+            همراه شما هستیم.
           </p>
         </div>
 
-        <div className="relative mt-20">
-          {/* خط عمودی فقط در دسکتاپ */}
-          <div className="absolute right-6 top-0 hidden h-full w-0.5 bg-brandgreen/20 lg:block"></div>
+        {/* Timeline */}
+        <div className="relative hidden lg:block">
+          {/* Main Line */}
+          <div className="absolute top-7 left-0 right-0 h-1 rounded-full bg-slate-200" />
 
-          <div className="space-y-10">
-            {steps.map((step) => (
-              <div
-                key={step.number}
-                className="relative flex flex-col gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg lg:flex-row lg:items-start"
-              >
-                <div className="z-10 flex h-14 w-14 items-center justify-center rounded-full bg-brandgreen text-lg font-bold text-white">
-                  {step.number}
-                </div>
+          {/* Active Line */}
+          <div
+            className="absolute top-7 h-1 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 transition-all duration-500"
+            style={{
+              width: `${(active / (steps.length - 1)) * 100}%`,
+            }}
+          />
 
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-brandblue">
-                    {step.title}
-                  </h3>
+          <div className="relative grid grid-cols-5">
+            {steps.map((step, index) => (
+              <div key={step.id} className="flex flex-col items-center">
+                <button
+                  onMouseEnter={() => setActive(index)}
+                  onClick={() => setActive(index)}
+                  className={`
+                    z-10 flex h-14 w-14 items-center justify-center rounded-full
+                    border-4 border-white transition-all duration-300
 
-                  <p className="mt-3 leading-8 text-brandblue/70">
-                    {step.desc}
-                  </p>
-                </div>
+                    ${
+                      index <= active
+                        ? "bg-blue-600 text-white shadow-xl scale-110"
+                        : "bg-white text-slate-500"
+                    }
+                  `}
+                >
+                  <Check size={22} />
+                </button>
+
+                <h3
+                  className={`mt-6 text-lg font-bold transition ${
+                    index === active ? "text-blue-600" : "text-slate-700"
+                  }`}
+                >
+                  {step.title}
+                </h3>
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Detail Card */}
+
+        <div className="mx-auto mt-20 max-w-3xl rounded-3xl border bg-white p-10 shadow-xl transition-all duration-500">
+          <span className="text-sm font-semibold text-blue-600">
+            مرحله {active + 1}
+          </span>
+
+          <h3 className="mt-3 text-3xl font-bold">{steps[active].title}</h3>
+
+          <p className="mt-6 leading-9 text-slate-600">
+            {steps[active].description}
+          </p>
+        </div>
+
+        {/* Mobile */}
+
+        <div className="space-y-6 lg:hidden">
+          {steps.map((step, index) => (
+            <div key={step.id} className="rounded-3xl bg-white p-6 shadow">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white">
+                  {index + 1}
+                </div>
+
+                <h3 className="font-bold">{step.title}</h3>
+              </div>
+
+              <p className="mt-5 leading-8 text-slate-500">
+                {step.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

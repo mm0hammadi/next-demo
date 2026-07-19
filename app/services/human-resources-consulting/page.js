@@ -1,12 +1,11 @@
 "use client";
 import ServicePage from "../components/ServicePage";
-import sales, { salesFramework } from "../../data/sales";
-import GrowthChart from "../components/GrowthChart";
-import { useState } from "react";
+import hr, { hrFramework } from "../../data/hr";
 import { Icon } from "lucide-react";
-import { businessFramework } from "../../data/sales";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
+import GrowthChart from "../components/GrowthChart";
+import { useState } from "react";
 
 export default function Page() {
   const [selectedService, setSelectedService] = useState(null);
@@ -14,8 +13,8 @@ export default function Page() {
   return (
     <>
       <Header />
-      <GrowthChart data={sales.salesFramework} />
-      <ServicePage data={sales} />
+      <GrowthChart data={hrFramework} />
+      <ServicePage data={hr} />
       <Footer />
     </>
   );

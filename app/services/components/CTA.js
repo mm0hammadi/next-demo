@@ -1,43 +1,32 @@
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
-export default function CTA() {
+export default function CTA({ data }) {
   return (
-    <section className="relative overflow-hidden bg-brand-gradient py-24">
-      {/* Glow */}
-      <div className="absolute -top-20 left-0 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-brandgreen/20 blur-3xl" />
+    <section className="py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="relative overflow-hidden rounded-[36px] bg-gradient-to-r from-slate-900 via-blue-900 to-blue-700 px-10 py-20 text-center text-white">
+          <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-cyan-400/20 blur-3xl" />
 
-      <div className="relative mx-auto max-w-5xl px-6 text-center">
-        <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur">
-          آماده شروع هستید؟
-        </span>
+          <div className="absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl" />
 
-        <h2 className="mt-6 text-4xl font-black leading-tight text-white md:text-5xl">
-          فروش را از یک فعالیت روزمره
-          <br />
-          به یک سیستم درآمدساز تبدیل کنید.
-        </h2>
+          <div className="relative">
+            <h2 className="mx-auto mt-8 max-w-3xl text-5xl font-extrabold leading-tight">
+              {data.title}
+            </h2>
 
-        <p className="mx-auto mt-6 max-w-3xl text-lg leading-9 text-white/80">
-          اگر به دنبال افزایش نرخ تبدیل، بهبود عملکرد تیم فروش و طراحی یک سیستم
-          فروش پایدار هستید، کارشناسان پنداریار آماده‌اند تا در کنار شما مسیر
-          رشد کسب‌وکارتان را طراحی و اجرا کنند.
-        </p>
+            <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-slate-200">
+              {data.description}
+            </p>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-4">
-          <Link
-            href="/contact"
-            className="rounded-xl bg-white px-8 py-4 font-bold text-brandblue transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-          >
-            درخواست جلسه مشاوره
-          </Link>
-
-          <Link
-            href="/about"
-            className="rounded-xl border border-white/20 bg-white/10 px-8 py-4 font-semibold text-white backdrop-blur transition hover:bg-white/20"
-          >
-            درباره پنداریار
-          </Link>
+            <Link
+              href={data.button.href}
+              className="mt-12 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 font-semibold text-slate-900 transition hover:scale-105"
+            >
+              {data.button.text}
+              <ArrowLeft size={20} />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

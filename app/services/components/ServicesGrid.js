@@ -1,45 +1,72 @@
-import { services } from "../sales-marketing-consulting/data";
+"use client";
 
-export default function ServicesGrid() {
+import { ArrowLeft } from "lucide-react";
+
+export default function ServicesGrid({ services, onSelect }) {
   return (
-    <section id="services" className="bg-slate-50 py-24">
+    <section id="services" className="py-24 bg-slate-50">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="rounded-full bg-brandgreen/10 px-4 py-2 text-sm font-semibold text-brandgreen-dark">
-            خدمات تخصصی
-          </span>
+        <div className="mb-16 text-center">
+          <span className="text-blue-600 font-semibold">خدمات</span>
 
-          <h2 className="mt-5 text-4xl font-black text-brandblue">
-            خدمات مشاوره فروش و بازاریابی
-          </h2>
+          <h2 className="mt-4 text-4xl font-bold">خدمات مشاوره کسب‌وکار</h2>
 
-          <p className="mt-5 leading-8 text-brandblue/70">
-            خدمات ما تمام مراحل طراحی، استقرار و بهینه‌سازی سیستم فروش را پوشش
-            می‌دهد تا سازمان شما به درآمدی پایدار و قابل پیش‌بینی برسد.
+          <p className="mt-4 text-slate-500 max-w-2xl mx-auto">
+            خدمات ما تمام ابعاد رشد سازمان را پوشش می‌دهد.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-          {services.map((service) => (
-            <div
-              key={service.title}
-              className="group rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
-            >
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brandgreen/10 text-3xl transition group-hover:scale-110">
-                {service.icon}
-              </div>
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {services.map((service) => {
+            const Icon = service.icon;
 
-              <h3 className="mt-6 text-xl font-bold text-brandblue">
-                {service.title}
-              </h3>
+            return (
+              <button
+                key={service.id}
+                onClick={() => onSelect(service.id)}
+                className="
+                  group
+                  rounded-3xl
+                  border
+                  bg-white
+                  p-8
+                  text-right
+                  shadow-sm
+                  transition-all
+                  duration-300
+                  hover:-translate-y-2
+                  hover:border-blue-600
+                  hover:shadow-xl
+                "
+              >
+                <div className="mb-8 inline-flex rounded-2xl bg-blue-100 p-4">
+                  <Icon
+                    className="
+                      text-blue-600
+                      transition-transform
+                      group-hover:scale-110
+                    "
+                    size={28}
+                  />
+                </div>
 
-              <p className="mt-4 leading-8 text-brandblue/70">{service.desc}</p>
+                <h3 className="text-2xl font-bold">{service.title}</h3>
 
-              <button className="mt-6 font-semibold text-brandgreen-dark transition group-hover:translate-x-1">
-                بیشتر بدانید ←
+                <p className="mt-4 leading-8 text-slate-500">{service.short}</p>
+
+                <div className="mt-8 flex items-center gap-2 font-semibold text-blue-600">
+                  مشاهده جزئیات
+                  <ArrowLeft
+                    size={18}
+                    className="
+                      transition-transform
+                      group-hover:-translate-x-1
+                    "
+                  />
+                </div>
               </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

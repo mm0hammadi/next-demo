@@ -1,49 +1,83 @@
-import { serviceDetails } from "../sales-marketing-consulting/data";
+"use client";
 
-export default function ServiceAccordion() {
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+
+export default function ServiceAccordion({ services }) {
+  const [open, setOpen] = useState(0);
+
   return (
-    <section className="bg-slate-50 py-24">
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="text-center">
-          <span className="rounded-full bg-brandgreen/10 px-4 py-2 text-sm font-semibold text-brandgreen-dark">
-            جزئیات خدمات
-          </span>
+    <section className="py-24">
+      <div className="mx-auto max-w-5xl space-y-6">
 
-          <h2 className="mt-5 text-4xl font-black text-brandblue">
-            خدمات تخصصی فروش و بازاریابی
-          </h2>
+        {services.map((service, index) => {
+          const Icon = service.icon;
+          const active = open === index;
 
-          <p className="mt-5 leading-8 text-brandblue/70">
-            برای مشاهده جزئیات هر خدمت، روی عنوان آن کلیک کنید.
-          </p>
-        </div>
-
-        <div className="mt-16 space-y-5">
-          {serviceDetails.map((service) => (
-            <details
-              key={service.title}
-              className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all"
+          return (
+            <div
+              key={service.id}
+              className="rounded-3xl border bg-white shadow-sm overflow-hidden"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between px-8 py-6 text-xl font-bold text-brandblue">
-                {service.title}
+              <button
+                onClick={() =>
+                  setOpen(active ? -1 : index)
+                }
+                className="flex w-full items-center justify-between p-8 text-right"
+              >
+                <div className="flex gap-5">
 
-                <span className="text-3xl transition duration-300 group-open:rotate-45">
-                  +
-                </span>
-              </summary>
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100">
+                    <Icon className="text-blue-600" />
+                  </div>
 
-              <div className="border-t border-slate-100 px-8 py-8">
-                <div className="space-y-6">
-                  {service.content.map((paragraph, index) => (
-                    <p key={index} className="leading-9 text-brandblue/75">
-                      {paragraph}
+                  <div>
+                    <h3 className="text-xl font-bold">
+                      {service.title}
+                    </h3>
+
+                    <p className="mt-2 text-gray-500">
+                      {service.short}
                     </p>
-                  ))}
+                  </div>
+
                 </div>
-              </div>
-            </details>
-          ))}
-        </div>
+
+                <ChevronDown
+                  className={`transition ${
+                    active ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {active && (
+                <div className="border-t px-8 py-8">
+
+                  <p className="leading-9 text-gray-600">
+                    {service.description}
+                  </p>
+
+                  <div className="mt-8 grid md:grid-cols-2 gap-4">
+                    {service.bullets.map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-center gap-3"
+                      >
+                        <div className="h-2 w-2 rounded-full bg-blue-600" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button className="mt-8 rounded-xl bg-blue-600 px-6 py-3 text-white hover:bg-blue-700">
+                    درخواست مشاوره
+                  </button>
+
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </section>
   );

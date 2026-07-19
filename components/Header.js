@@ -8,9 +8,9 @@ import Link from "next/link";
 const nav = [
   { label: "صفحه اصلی", href: "/" },
   { label: "خدمات", href: "/#services" },
-  { label: "بلاگ", href: "/blog" }, // یا "#"
-  { label: "تماس با ما", href: "/#contact" },
-  { label: "درباره ما", href: "/#about" },
+  { label: "مقالات", href: "/blog" },
+  { label: "تماس با ما", href: "/contact" },
+  { label: "درباره ما", href: "/about" },
 ];
 
 export default function Header() {
